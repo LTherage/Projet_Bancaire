@@ -1,0 +1,4 @@
+# Project exclude paths
+/Banque/.gradle/
+/Banque/build/
+/Banque/build/classes/java/main/

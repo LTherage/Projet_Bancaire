@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="fr.univartois.butinfo.ihm.ApplicationBanque">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <MenuBar>
+        <menus>
+            <Menu text="Fichier">
+                <items>
+                    <MenuItem text="Item 1" />
+                    <MenuItem text="Item 2" />
+                    <MenuItem text="Item 3" />
+                    <Menu text="Ouvrir">
+                        <items>
+                            <MenuItem text="Item 4" />
+                            <MenuItem text="Item 5" />
+                        </items>
+                    </Menu>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+    <Button text="Se connecter" fx:id="connexion" onAction="#seConnecter" />
+    <Button text="Créer un compte" onAction="#creerCompte" />
+</VBox>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.univartois.butinfo.ihm.ApplicationBanque"
+            prefHeight="600"
+            prefWidth="800"
+            styleClass="main-container">
+
+    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <!-- En-tête -->
+        <VBox alignment="CENTER" spacing="10" styleClass="header">
+            <Label text="Création de votre compte bancaire"
+                   styleClass="title-label"/>
+        </VBox>
+
+        <!-- Formulaire principal -->
+        <VBox spacing="15" alignment="CENTER" styleClass="form-container" maxWidth="400">
+            <!-- Informations essentielles -->
+            <HBox spacing="10">
+                <TextField fx:id="nomField" promptText="Nom" HBox.hgrow="ALWAYS" styleClass="required-field">
+                    <tooltip>
+                        <Tooltip text="Entrez votre nom de famille"/>
+                    </tooltip>
+                </TextField>
+
+                <TextField fx:id="prenomField" promptText="Prénom" HBox.hgrow="ALWAYS" styleClass="required-field">
+                    <tooltip>
+                        <Tooltip text="Entrez votre prénom"/>
+                    </tooltip>
+                </TextField>
+            </HBox>
+
+            <DatePicker fx:id="dateClient" promptText="Date de naissance"
+                        maxWidth="Infinity"/>
+
+            <!-- Informations compte -->
+            <VBox spacing="10" styleClass="account-section">
+                <Label text="Informations du compte" styleClass="section-label"/>
+                <TextField fx:id="identifiantField" promptText="Identifiant du compte"/>
+                <PasswordField fx:id="motDePasseField" promptText="Mot de passe"/>
+                <PasswordField fx:id="confirmationMotDePasse"
+                               promptText="Confirmer le mot de passe"/>
+            </VBox>
+
+            <!-- Choix du type de compte -->
+            <VBox spacing="10" styleClass="account-type-section">
+                <Label text="Type de compte" styleClass="section-label"/>
+                <HBox spacing="20" alignment="CENTER">
+                    <RadioButton text="Compte Courant" selected="true"
+                                 fx:id="compteCourantRadio">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="typeCompteGroup"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton text="Compte Épargne"
+                                 toggleGroup="$typeCompteGroup"
+                                 fx:id="compteEpargneRadio"/>
+                </HBox>
+            </VBox>
+
+            <!-- Informations complémentaires -->
+            <VBox spacing="10" styleClass="additional-info-section">
+                <Label text="Informations de contact" styleClass="section-label"/>
+                <TextField fx:id="emailField" promptText="Adresse email"/>
+                <TextField fx:id="telephoneField" promptText="Numéro de téléphone"/>
+                <Label fx:id="messageLabel" styleClass="info-label"/>
+            </VBox>
+
+
+            <!-- Boutons d'action -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Retour"
+                        onAction="#onClickButtonMainPage"
+                        styleClass="button-secondary"/>
+                <Button text="Créer le compte"
+                        onAction="#creerNouveauClient"
+                        styleClass="button-primary"/>
+            </HBox>
+        </VBox>
+        <CheckBox fx:id="conditionsCheckBox" text="J'accepte les conditions d'utilisation"/>
+    </VBox>
+</AnchorPane>

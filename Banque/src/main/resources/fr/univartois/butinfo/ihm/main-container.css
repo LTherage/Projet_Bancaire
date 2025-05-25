@@ -1,0 +1,59 @@
+.main-container {
+-fx-background-color: #f5f5f5;
+}
+
+.header {
+-fx-padding: 20px;
+-fx-background-color: #1976D2;
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 3);
+}
+
+.title-label {
+-fx-font-size: 24px;
+-fx-text-fill: white;
+-fx-font-weight: bold;
+}
+
+.form-container {
+-fx-background-color: white;
+-fx-padding: 30px;
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 3);
+-fx-background-radius: 5px;
+}
+
+.section-label {
+-fx-font-size: 16px;
+-fx-font-weight: bold;
+-fx-text-fill: #333333;
+}
+
+.account-section, .account-type-section {
+-fx-padding: 10px;
+-fx-background-color: #f8f9fa;
+-fx-background-radius: 5px;
+}
+
+.button-primary {
+-fx-background-color: #1976D2;
+-fx-text-fill: white;
+-fx-font-weight: bold;
+-fx-padding: 10px 20px;
+}
+
+.button-secondary {
+-fx-background-color: #757575;
+-fx-text-fill: white;
+-fx-padding: 10px 20px;
+}
+
+.text-field, .date-picker {
+-fx-pref-height: 35px;
+}
+
+.radio-button {
+-fx-padding: 5px;
+}
+
+.required-field {
+    -fx-text-fill: red;
+}
