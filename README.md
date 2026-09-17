@@ -60,7 +60,7 @@
 
 ## 🌸 Features
 
-<code>❯ REPLACE-ME</code>
+Gestion des comptes bancaires, JavaFX, rôles, transactions et navigation.
 
 ---
 
@@ -112,15 +112,15 @@
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/gradlew.bat'>gradlew.bat</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+					<td style='padding: 8px;'>Script Windows de lancement du projet Gradle.</td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/build.gradle'>build.gradle</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+					<td style='padding: 8px;'>Configuration Gradle du projet JavaFX avec Java 21.</td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/settings.gradle'>settings.gradle</a></b></td>
-					<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+					<td style='padding: 8px;'>Définition du module Gradle du projet Banque.</td>
 				</tr>
 			</table>
 			<!-- src Submodule -->
@@ -174,71 +174,71 @@
 																	</thead>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/RetraitException.java'>RetraitException.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Exception levée lors d’un retrait invalide ou impossible.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/EmployeBanque.java'>EmployeBanque.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Classe métier pour un employé bancaire et ses droits.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/Individu.java'>Individu.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Classe de base représentant une personne du système bancaire.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/Client.java'>Client.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Modèle principal d’un client bancaire.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/CompteBanque.java'>CompteBanque.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Compte bancaire principal avec solde, RIB, rôle et opérations.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/CategorieException.java'>CategorieException.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Exception pour les cas de catégorie invalide ou non autorisée.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/SoldeException.java'>SoldeException.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Exception déclenchée si le solde est insuffisant ou invalide.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/Adresse.java'>Adresse.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Objet représentant l’adresse d’un client ou d’un employé.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/CompteException.java'>CompteException.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Exception générique sur les comptes bancaires.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/BaseDonnee.java'>BaseDonnee.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Source de données ou base simulée utilisée par le projet.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/CompteBanqueController.java'>CompteBanqueController.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Contrôleur gérant les actions de compte et la navigation bancaire.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/VirementException.java'>VirementException.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Exception levée si le virement est refusé ou invalide.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/AgeException.java'>AgeException.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Exception liée aux validations de l’âge du client.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/Operation.java'>Operation.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Représente une opération bancaire (dépôt, retrait, virement).</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/InfoBanque.java'>InfoBanque.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Classe regroupant les informations générales de la banque.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/bdd.xml'>bdd.xml</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Fichier XML de données de référence du projet.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/java/fr/univartois/butinfo/ihm/ApplicationBanque.java'>ApplicationBanque.java</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Point d’entrée JavaFX et gestion de la navigation principale.</td>
 																		</tr>
 																	</table>
 																</blockquote>
@@ -290,27 +290,27 @@
 																	</thead>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/resources/fr/univartois/butinfo/ihm/interface-view.fxml'>interface-view.fxml</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Vue d’interface principale de gestion du compte bancaire.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/resources/fr/univartois/butinfo/ihm/main-container.css'>main-container.css</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Feuille de style pour la mise en page générale des vues.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/resources/fr/univartois/butinfo/ihm/creation-view.fxml'>creation-view.fxml</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Écran de création d’un nouveau compte bancaire.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/resources/fr/univartois/butinfo/ihm/connexion-view.fxml'>connexion-view.fxml</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Vue de connexion du client ou de l’employé.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/resources/fr/univartois/butinfo/ihm/hello-view.fxml'>hello-view.fxml</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Écran d’accueil de l’application bancaire.</td>
 																		</tr>
 																		<tr style='border-bottom: 1px solid #eee;'>
 																			<td style='padding: 8px;'><b><a href='https://github.com/LTherage/Projet_Bancaire/blob/master/Banque/src/main/resources/fr/univartois/butinfo/ihm/style.css'>style.css</a></b></td>
-																			<td style='padding: 8px;'>Code>❯ REPLACE-ME</code></td>
+																			<td style='padding: 8px;'>Feuille de style moderne de l’interface JavaFX.</td>
 																		</tr>
 																	</table>
 																</blockquote>
