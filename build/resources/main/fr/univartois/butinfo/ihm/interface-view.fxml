@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.univartois.butinfo.ihm.CompteBanqueController"
+            stylesheets="@style.css">
+   <VBox spacing="15" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0"
+         AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+
+      <!-- En-tête avec le solde -->
+      <HBox alignment="CENTER" spacing="20" styleClass="header-info">
+         <Label text="Solde actuel :" styleClass="header-label"/>
+         <Label fx:id="soldeCompteLabel" styleClass="solde-value"/>
+      </HBox>
+
+      <TabPane VBox.vgrow="ALWAYS">
+         <!-- Onglet Principal -->
+         <Tab text="Accueil" closable="false">
+            <VBox spacing="10">
+               <TableView fx:id="historiqueTable" VBox.vgrow="ALWAYS">
+                  <columns>
+                     <TableColumn fx:id="dateColonne" text="Date" prefWidth="150"/>
+                     <TableColumn fx:id="typeColonne" text="Type" prefWidth="100"/>
+                     <TableColumn fx:id="montantColonne" text="Montant" prefWidth="100"/>
+                     <TableColumn fx:id="soldeColonne" text="Solde" prefWidth="100"/>
+                     <TableColumn fx:id="motifColonne" text="Motif" prefWidth="200"/>
+                  </columns>
+               </TableView>
+            </VBox>
+         </Tab>
+
+         <!-- Onglet Virement -->
+         <Tab text="Virement" closable="false">
+            <VBox spacing="15" styleClass="form-container">
+               <GridPane hgap="10" vgap="10">
+                  <Label text="Compte destinataire :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                  <ComboBox fx:id="compteDestinataireCombo" promptText="Sélectionner le destinataire"
+                            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                  <Label text="Montant :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                  <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <TextField fx:id="montantVirementField" promptText="0.00"/>
+                     <Label text="€"/>
+                  </HBox>
+
+                  <Label text="Motif :" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                  <TextField fx:id="motifVirementField" promptText="Motif du virement"
+                             GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+               </GridPane>
+
+               <HBox alignment="CENTER_RIGHT" spacing="10">
+                  <Button fx:id="annulerVirementButton" text="Annuler" cancelButton="true"/>
+                  <Button fx:id="confirmerVirementButton" text="Confirmer" defaultButton="true"/>
+               </HBox>
+            </VBox>
+         </Tab>
+
+         <!-- Onglet Informations -->
+         <Tab text="Informations" closable="false">
+            <VBox spacing="15" styleClass="info-container">
+               <GridPane styleClass="account-info" hgap="10" vgap="10">
+                  <Label text="Titulaire :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                  <Label fx:id="nomTitulaireLabel" styleClass="info-value"
+                         GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                  <Label text="Plafond virement restant :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                  <Label fx:id="plafondVirementLabel" styleClass="info-value"
+                         GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+               </GridPane>
+            </VBox>
+         </Tab>
+      </TabPane>
+   </VBox>
+</AnchorPane>
