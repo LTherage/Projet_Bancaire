@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.univartois.butinfo.ihm.DashboardController"
+      spacing="24" alignment="CENTER" styleClass="panel" stylesheets="@style.css"
+      prefWidth="980" prefHeight="620" style="-fx-padding: 30;">
+
+    <Label fx:id="titleLabel" text="Dashboard" styleClass="page-title"/>
+
+    <GridPane hgap="22" vgap="22" maxWidth="820">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+
+        <VBox styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Résumé 1" styleClass="card-title"/>
+            <Label fx:id="summaryLabel1" wrapText="true" styleClass="stat-value"/>
+        </VBox>
+
+        <VBox styleClass="card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label text="Résumé 2" styleClass="card-title"/>
+            <Label fx:id="summaryLabel2" wrapText="true" styleClass="stat-value"/>
+        </VBox>
+
+        <VBox styleClass="card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Résumé 3" styleClass="card-title"/>
+            <Label fx:id="summaryLabel3" wrapText="true" styleClass="stat-value"/>
+        </VBox>
+
+        <VBox styleClass="card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="Résumé 4" styleClass="card-title"/>
+            <Label fx:id="summaryLabel4" wrapText="true" styleClass="stat-value"/>
+        </VBox>
+    </GridPane>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button fx:id="dashboardButton" text="Dashboard" onAction="#goToDashboard" styleClass="button-secondary"/>
+        <Button fx:id="profileButton" text="Profil" onAction="#openProfile"/>
+        <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button-danger"/>
+    </HBox>
+</VBox>

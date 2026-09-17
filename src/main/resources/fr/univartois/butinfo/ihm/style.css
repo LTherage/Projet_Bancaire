@@ -1,23 +1,151 @@
-/* style.css */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background: linear-gradient(to bottom, #f4f7fb, #edf3ff);
+}
+
+.label {
+    -fx-text-fill: #1f2a37;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-background-radius: 12px;
+    -fx-padding: 10 18 10 18;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.25), 12, 0.2, 0, 4);
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button-secondary {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #0f172a;
+    -fx-effect: null;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #cbd5e1;
+}
+
+.button-danger {
+    -fx-background-color: #ef4444;
+}
+
+.button-danger:hover {
+    -fx-background-color: #dc2626;
+}
+
+.panel {
+    -fx-background-color: white;
+    -fx-background-radius: 18px;
+    -fx-border-color: #dfeaf5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 18px;
+    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.10), 10, 0.2, 0, 3);
+}
+
+.card {
+    -fx-padding: 18px;
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.08), 10, 0.2, 0, 2);
+}
+
+.card-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #475569;
+}
+
+.stat-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f172a;
+}
+
+.page-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f172a;
+}
+
+.subtle-text {
+    -fx-text-fill: #64748b;
+}
+
+.auth-shell {
+    -fx-background: linear-gradient(to bottom, #e0ecff, #f8fbff);
+}
+
+.auth-card {
+    -fx-background-color: rgba(255,255,255,0.9);
+    -fx-background-radius: 22px;
+    -fx-border-color: #dfeaf5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 22px;
+    -fx-padding: 28px;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.10), 16, 0.2, 0, 8);
+}
+
+.auth-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f172a;
+}
+
+.auth-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
 .account-info {
     -fx-padding: 10;
-    -fx-background-color: #f5f5f5;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: #ddd;
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e2e8f0;
 }
 
 .solde-value {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f172a;
 }
 
 .info-value {
-    -fx-font-weight: bold;
+    -fx-font-weight: 700;
 }
 
 .table-view {
     -fx-background-color: transparent;
+    -fx-border-color: #dfeaf5;
+    -fx-border-radius: 12px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #eef4ff;
+    -fx-padding: 10px;
+    -fx-font-weight: 700;
+}
+
+.text-field, .password-field, .combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.15), 8, 0.3, 0, 0);
 }
 
 .titled-pane {

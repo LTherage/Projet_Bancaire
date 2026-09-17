@@ -2,15 +2,19 @@ package fr.univartois.butinfo.ihm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CompteBanque {
     private String nomProprietaire;
     private double solde;
-    private int rib,virement, retrait, identifiantCompte, motDePasse;
+    private int rib, virement, retrait, identifiantCompte, motDePasse;
+    private Role role = Role.CLIENT;
     static final int MAX_VIREMENT = 1000;
-    private List<Operation> operations = new ArrayList<>();
+    private static final List<CompteBanque> COMPTES = new ArrayList<>();
+    private static boolean comptesInitialises = false;
+    private final List<Operation> operations = new ArrayList<>();
 
-    CompteBanque(String nomProprietaire, double solde, int identifiantCompte, int rib, int motDePasse, int virement, int retrait) {
+    public CompteBanque(String nomProprietaire, double solde, int identifiantCompte, int rib, int motDePasse, int virement, int retrait) {
         this.nomProprietaire = nomProprietaire;
         this.solde = solde;
         this.identifiantCompte = identifiantCompte;
@@ -18,9 +22,66 @@ public class CompteBanque {
         this.motDePasse = motDePasse;
         this.virement = virement;
         this.retrait = retrait;
+        ajouterCompte(this);
     }
 
-    public List<Operation> getOperations() {return operations;}
+    public enum Role {
+        ADMIN,
+        EMPLOYE,
+        CLIENT
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role == null ? Role.CLIENT : role;
+    }
+
+    public static List<CompteBanque> getComptes() {
+        if (!comptesInitialises) {
+            initialiserComptesDeTest();
+            comptesInitialises = true;
+        }
+        return COMPTES;
+    }
+
+    public static void initialiserComptesDeTest() {
+        if (COMPTES.isEmpty()) {
+            CompteBanque admin = new CompteBanque("Admin Banque", 20000, 1, 100001, 1111, 0, 0);
+            admin.setRole(Role.ADMIN);
+            CompteBanque employe = new CompteBanque("Employe Banque", 8000, 2, 100002, 2222, 0, 0);
+            employe.setRole(Role.EMPLOYE);
+            CompteBanque client1 = new CompteBanque("Jean Dupont", 5000, 101, 123456, 9876, 0, 0);
+            client1.setRole(Role.CLIENT);
+            CompteBanque client2 = new CompteBanque("Marie Curie", 3000, 102, 654321, 1234, 0, 0);
+            client2.setRole(Role.CLIENT);
+            COMPTES.add(admin);
+            COMPTES.add(employe);
+            COMPTES.add(client1);
+            COMPTES.add(client2);
+        }
+    }
+
+    public static void ajouterCompte(CompteBanque compte) {
+        if (compte == null) {
+            return;
+        }
+        boolean existe = COMPTES.stream().anyMatch(c -> c.identifiantCompte == compte.identifiantCompte);
+        if (!existe) {
+            COMPTES.add(compte);
+        }
+    }
+
+    public static CompteBanque trouverCompteParIdentifiant(int identifiantCompte) {
+        return COMPTES.stream()
+                .filter(compte -> compte.identifiantCompte == identifiantCompte)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<Operation> getOperations() { return operations; }
 
     public String getNomProprietaire() {
         return nomProprietaire;
@@ -59,14 +120,10 @@ public class CompteBanque {
     }
 
     public void setVirement(int vir) throws VirementException {
-        try {
-            this.virement = vir;
-        } catch (Exception VirementException) {
-            if (virement < 0) {
-                throw new VirementException("On ne peut pas réinitialiser le plafond virement en négatif");
-            }
+        if (vir < 0) {
+            throw new VirementException("On ne peut pas réinitialiser le plafond virement en négatif");
         }
-
+        this.virement = vir;
     }
 
     public int getRetrait() {
@@ -74,31 +131,27 @@ public class CompteBanque {
     }
 
     public void setRetrait(int plafondRetrait) throws RetraitException {
-        try {
-            this.retrait = plafondRetrait;
-        } catch (Exception RetraitException) {
-            if (plafondRetrait < 0) {
-                throw new RetraitException("Le plafond de retrait ne peut pas être rénitialisé négativement");
-            }
+        if (plafondRetrait < 0) {
+            throw new RetraitException("Le plafond de retrait ne peut pas être rénitialisé négativement");
         }
-
+        this.retrait = plafondRetrait;
     }
 
     public double getSolde(CompteBanque compte1) throws CompteException {
-        double sold = 0.0;
-        try {
-            if (compte1.getNomProprietaire().equals(compte1.getNomProprietaire()) && compte1.motDePasse == motDePasse) {
-                sold = this.solde;
-            }
-
-        } catch (Exception CompteException) {
+        if (compte1 == null) {
+            throw new CompteException("Compte invalide");
+        }
+        if (!Objects.equals(this.nomProprietaire, compte1.nomProprietaire)
+                || this.identifiantCompte != compte1.identifiantCompte) {
             throw new CompteException("Par sécurité, vous ne pouvez pas voir le solde car vous n'êtes pas propriétaire");
         }
-        return sold;
+        return this.solde;
     }
 
-
     public void retrait(double montant, CompteBanque compte) throws SoldeException, CompteException {
+        if (compte == null) {
+            throw new CompteException("Compte invalide");
+        }
         if (montant <= 0) {
             throw new SoldeException("Le montant du retrait doit être positif");
         }
@@ -111,6 +164,9 @@ public class CompteBanque {
     }
 
     public void depot(double montant, CompteBanque compte) throws SoldeException, CompteException {
+        if (compte == null) {
+            throw new CompteException("Compte invalide");
+        }
         if (montant <= 0) {
             throw new SoldeException("Vous ne pouvez pas déposer un montant négatif ou nul");
         }
@@ -120,6 +176,12 @@ public class CompteBanque {
     }
 
     public void virement(CompteBanque expediteur, CompteBanque destinataire, double montant) throws SoldeException, CompteException {
+        if (expediteur == null || destinataire == null) {
+            throw new CompteException("Les comptes de l'opération sont invalides");
+        }
+        if (expediteur == destinataire) {
+            throw new SoldeException("Impossible d'effectuer un virement vers le même compte");
+        }
         if (montant <= 0) {
             throw new SoldeException("Le montant du virement doit être positif");
         }
@@ -134,82 +196,84 @@ public class CompteBanque {
     }
 
     public void connexion(CompteBanque compte1, int mdp) throws CompteException {
-        try {
-            if (compte1.getMotDePasse() == mdp) {
-                System.out.println("Bienvenu :) " + compte1.getNomProprietaire() + "dans votre compte. Votre solde est actuellement de" + compte1.getSolde(compte1) + "euros");
-                System.out.println("Que voulez-vous faire sur votre compte Monsieur" + compte1.getNomProprietaire() + "?");
-            }
+        if (compte1 == null) {
+            throw new CompteException("Compte invalide");
+        }
+        if (compte1.getMotDePasse() != mdp) {
+            throw new CompteException("Vous avez tapé un mot de passe erroné");
+        }
+        System.out.println("Bienvenue :) " + compte1.getNomProprietaire() + " dans votre compte. Votre solde est actuellement de " + compte1.getSolde(compte1) + " euros");
+        System.out.println("Que voulez-vous faire sur votre compte Monsieur " + compte1.getNomProprietaire() + " ?");
+    }
 
-        } catch (Exception CompteException) {
-            throw new CompteException("Vous avez tapper un mot de passe éronné");
+    public void plafond_virement(CompteBanque compte1, CompteBanque compte2, int montant) throws VirementException, CompteException, SoldeException {
+        if (compte1 == null || compte2 == null) {
+            throw new CompteException("Les comptes de l'opération sont invalides");
+        }
+        if (montant <= 0) {
+            throw new SoldeException("Le montant du virement doit être positif");
+        }
+        if (compte1.getVirement() + montant > MAX_VIREMENT) {
+            throw new VirementException("Le plafond bancaire est dépassé");
+        }
+        compte1.virement += montant;
+        virement(compte1, compte2, montant);
+        System.out.println("Vous pouvez faire un virement, votre plafond bancaire est de : " + compte1.virement + " euros");
+        if (MAX_VIREMENT - 20 < compte1.virement) {
+            System.out.println("Votre plafond est bientôt atteint");
         }
     }
 
-    public void plafond_virement(CompteBanque compte1, CompteBanque compte2, int montant) throws VirementException{
-        try {
-            if (compte1.getVirement() + montant <= MAX_VIREMENT) {
-                compte1.virement += montant;
-                virement(compte1, compte2, montant);
-                System.out.println("Vous pouvez faire un virement, votre plafond bancaire est de : " + virement + "euros ");
-                if (MAX_VIREMENT - 20 < virement) {
-                    System.out.println("Votre plafond est bientôt atteint");
-                }
-            }
-        } catch (Exception VirementException) {
-            if (compte1.getVirement() > MAX_VIREMENT) {
-                throw new VirementException("Le plafond bancaire est dépassé");
-            }
+    public void plafond_retrait(double s, CompteBanque compte) throws RetraitException, CompteException, SoldeException {
+        if (compte == null) {
+            throw new CompteException("Compte invalide");
         }
-
+        if (s <= 0) {
+            throw new SoldeException("Le montant du retrait doit être positif");
+        }
+        if (compte.getRetrait() + s > MAX_VIREMENT) {
+            throw new RetraitException("Le plafond de retrait est dépassé");
+        }
+        compte.retrait += s;
+        retrait(s, compte);
+        System.out.println("Vous pouvez faire un retrait, votre plafond retrait est de : " + compte.retrait + " euros");
+        if (MAX_VIREMENT - 20 < compte.retrait) {
+            System.out.println("Votre plafond est bientôt atteint");
+        }
     }
 
-    public void plafond_retrait(double s, CompteBanque compte) throws RetraitException {
-        try {
-            if (compte.getRetrait() + s <= MAX_VIREMENT) {
-                compte.retrait += s;
-                retrait(s, compte);
-                System.out.println("Vous pouvez faire un retrait, votre plafond retrait est de : " + retrait + "euros ");
-                if (MAX_VIREMENT - 20 < retrait) {
-                    System.out.println("Votre plafond est bientôt atteint");
-                }
-            }
-
-        } catch (Exception RetraitException) {
-            if (compte.getRetrait() > MAX_VIREMENT) {
-                throw new RetraitException("Le plafond de retrait est dépassé");
-            }
+    public static CompteBanque authentifier(int identifiant, String motDePasse) {
+        if (motDePasse == null || motDePasse.isBlank()) {
+            return null;
         }
+        if (!comptesInitialises) {
+            initialiserComptesDeTest();
+            comptesInitialises = true;
+        }
+        CompteBanque compte = trouverCompteParIdentifiant(identifiant);
+        if (compte != null && String.valueOf(compte.getMotDePasse()).equals(motDePasse.trim())) {
+            return compte;
+        }
+        if ((identifiant == 101 && motDePasse.equals("9876")) || (identifiant == 102 && motDePasse.equals("1234"))) {
+            return trouverCompteParIdentifiant(identifiant);
+        }
+        return null;
     }
 
     public static boolean verifierAuthentification(int identifiant, String motDePasse) {
-        try {
-            // Pour test, utilisez ces valeurs (à remplacer par une vraie base de données)
-            return (identifiant == 101 && motDePasse.equals("9876")) ||
-                    (identifiant == 102 && motDePasse.equals("1234"));
-        } catch (Exception e) {
-            return false;
-        }
+        return authentifier(identifiant, motDePasse) != null;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
-            // Création de comptes bancaires
             CompteBanque compte1 = new CompteBanque("Jean Dupont", 5000, 101, 123456, 9876, 0, 0);
             CompteBanque compte2 = new CompteBanque("Marie Curie", 3000, 102, 654321, 1234, 0, 0);
 
-            // Connexion au compte
             compte1.connexion(compte1, 9876);
-
-            // Dépôt d'argent
             compte1.depot(500, compte1);
-
-            // Retrait d'argent
             compte1.retrait(200, compte1);
-
-            // Virement entre comptes
             compte1.virement(compte1, compte2, 1000);
 
-            // Vérification des soldes après transactions
             System.out.println("Solde du compte de Jean : " + compte1.getSolde(compte1));
             System.out.println("Solde du compte de Marie : " + compte2.getSolde(compte2));
 

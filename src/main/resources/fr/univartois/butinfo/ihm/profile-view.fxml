@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.univartois.butinfo.ihm.ProfileController"
+      spacing="20" alignment="CENTER" styleClass="panel" stylesheets="@style.css"
+      prefWidth="760" prefHeight="520" style="-fx-padding: 30;">
+
+    <Label fx:id="profileTitle" text="Profil" styleClass="page-title"/>
+
+    <VBox spacing="12" maxWidth="420" styleClass="card">
+        <Label fx:id="profileName" styleClass="stat-value"/>
+        <Label fx:id="profileRole" styleClass="subtle-text"/>
+        <Label fx:id="profileId" styleClass="subtle-text"/>
+        <Label fx:id="profileBalance" styleClass="stat-value"/>
+    </VBox>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button fx:id="goDashboardButton" text="Dashboard" onAction="#goDashboard" styleClass="button-secondary"/>
+        <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button-danger"/>
+    </HBox>
+</VBox>

@@ -64,9 +64,25 @@ public class ApplicationBanque extends Application {
 
 
     public static void changerVue(Stage stage, String fxml) {
+        changerVue(stage, fxml, SessionManager.getCurrentCompte());
+    }
+
+    public static void changerVue(Stage stage, String fxml, CompteBanque compte) {
         try {
             FXMLLoader loader = new FXMLLoader(ApplicationBanque.class.getResource(fxml));
             Parent root = loader.load();
+
+            if (compte != null && "interface-view.fxml".equals(fxml)) {
+                Object controller = loader.getController();
+                if (controller instanceof CompteBanqueController compteController) {
+                    compteController.setCompteActuel(compte);
+                    compteController.setComptesDisponibles(
+                            CompteBanque.getComptes().stream()
+                                    .filter(c -> c != compte)
+                                    .toList());
+                }
+            }
+
             stage.setScene(new Scene(root, 900, 540));
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de " + fxml);
@@ -93,24 +109,28 @@ public class ApplicationBanque extends Application {
             String identifiantSaisi = text.getText();
             String motDePasseSaisi = passwd.getText();
 
-            // Vérification des champs vides
-            if (identifiantSaisi.isEmpty() || motDePasseSaisi.isEmpty()) {
+            if (identifiantSaisi == null || identifiantSaisi.isBlank() || motDePasseSaisi == null || motDePasseSaisi.isBlank()) {
                 label.setText("Veuillez remplir tous les champs");
                 label.setStyle("-fx-text-fill: red;");
                 return;
             }
 
             int id = Integer.parseInt(identifiantSaisi);
+            CompteBanque compte = CompteBanque.authentifier(id, motDePasseSaisi);
 
-            // Vérification de l'authentification
-            if (CompteBanque.verifierAuthentification(id, motDePasseSaisi)) {
+            if (compte != null) {
                 label.setText("Connexion réussie");
                 label.setStyle("-fx-text-fill: green;");
+                SessionManager.setCurrentCompte(compte);
 
-                // Redirection vers la page suivante après connexion réussie
                 Stage stage = (Stage) label.getScene().getWindow();
-                changerVue(stage, "interface-view.fxml");
-
+                if (compte.getRole() == CompteBanque.Role.ADMIN) {
+                    changerVue(stage, "dashboard-view.fxml", compte);
+                } else if (compte.getRole() == CompteBanque.Role.EMPLOYE) {
+                    changerVue(stage, "dashboard-view.fxml", compte);
+                } else {
+                    changerVue(stage, "dashboard-view.fxml", compte);
+                }
             } else {
                 label.setText("Identifiant ou mot de passe incorrect");
                 label.setStyle("-fx-text-fill: red;");
@@ -136,11 +156,23 @@ public class ApplicationBanque extends Application {
 
     @FXML
     private void onClickButtonMainPage(ActionEvent event) {
-        // Obtenir le bouton qui a déclenché l'événement
+        SessionManager.clear();
         Button button = (Button) event.getSource();
-        // Obtenir la scène à partir du bouton
         Stage stage = (Stage) button.getScene().getWindow();
         changerVue(stage, "hello-view.fxml");
+    }
+
+    @FXML
+    private void deconnexion() {
+        SessionManager.clear();
+        Stage stage = (Stage) connexion.getScene().getWindow();
+        changerVue(stage, "hello-view.fxml");
+    }
+
+    @FXML
+    private void ouvrirNavigation() {
+        Stage stage = (Stage) connexion.getScene().getWindow();
+        changerVue(stage, "navigation-view.fxml");
     }
 
     @FXML
@@ -188,74 +220,101 @@ public class ApplicationBanque extends Application {
 
     @FXML
     private void creerNouveauClient() {
-
-        if (nomField.getText().trim().isEmpty()) {
+        if (nomField.getText() == null || nomField.getText().trim().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom est obligatoire");
             nomField.setStyle("-fx-border-color: red;");
-
+            return;
         }
 
-        if (prenomField.getText().trim().isEmpty()) {
+        if (prenomField.getText() == null || prenomField.getText().trim().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Le prénom est obligatoire");
             prenomField.setStyle("-fx-border-color: red;");
-
+            return;
         }
 
+        if (ageField.getText() == null || ageField.getText().isBlank()) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "L'âge est obligatoire");
+            ageField.setStyle("-fx-border-color: red;");
+            return;
+        }
+
+        if (motDePasseField.getText() == null || motDePasseField.getText().isBlank() ||
+                !motDePasseField.getText().equals(confirmationMotDePasse.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Les mots de passe ne correspondent pas");
+            motDePasseField.setStyle("-fx-border-color: red;");
+            confirmationMotDePasse.setStyle("-fx-border-color: red;");
+            return;
+        }
+
+        if (conditionsCheckBox == null || !conditionsCheckBox.isSelected()) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Vous devez accepter les conditions d'utilisation");
+            return;
+        }
 
         nomField.setStyle("");
         prenomField.setStyle("");
+        ageField.setStyle("");
+        motDePasseField.setStyle("");
+        confirmationMotDePasse.setStyle("");
 
         try {
+            int age = Integer.parseInt(ageField.getText());
+            if (age < 18) {
+                throw new AgeException("Le client doit être majeur pour ouvrir un compte");
+            }
 
-            Adresse.Commune commune = new Adresse.Commune(
-                    Integer.parseInt(codePostalField.getText()),
-                    villeField.getText(),
-                    Integer.parseInt(departementField.getText())
-            );
+            int numeroClient = numeroClientField.getText() == null || numeroClientField.getText().isBlank()
+                    ? Integer.parseInt(identifiantField.getText())
+                    : Integer.parseInt(numeroClientField.getText());
 
-            // Création de l'adresse
-            Adresse adresse = new Adresse(
-                    Integer.parseInt(numeroRueField.getText()),
-                    rueField.getText(),
-                    commune
-            );
+            int codePostal = codePostalField.getText() == null || codePostalField.getText().isBlank()
+                    ? 0
+                    : Integer.parseInt(codePostalField.getText());
+            int departement = departementField.getText() == null || departementField.getText().isBlank()
+                    ? 0
+                    : Integer.parseInt(departementField.getText());
+            int numeroRue = numeroRueField.getText() == null || numeroRueField.getText().isBlank()
+                    ? 0
+                    : Integer.parseInt(numeroRueField.getText());
 
-            // Création du client
+            Adresse.Commune commune = new Adresse.Commune(codePostal, villeField.getText(), departement);
+            Adresse adresse = new Adresse(numeroRue, rueField.getText(), commune);
+
             Client nouveauClient = new Client(
                     nomField.getText(),
                     adresse,
                     prenomField.getText(),
-                    Integer.parseInt(codePostalField.getText()),
-                    Integer.parseInt(ageField.getText()),
+                    codePostal,
+                    age,
                     dateNaissanceField.getValue(),
-                    Integer.parseInt(numeroClientField.getText())
+                    numeroClient
             );
-
-            // Ajout du client à la liste
             Client.addClient(nouveauClient);
 
-            // Création du compte bancaire associé
+            int identifiant = Integer.parseInt(identifiantField.getText());
+            int rib = numeroClient > 0 ? numeroClient + 100000 : identifiant + 100000;
+            int password = Integer.parseInt(motDePasseField.getText());
+
             CompteBanque nouveauCompte = new CompteBanque(
-                    nouveauClient.getNom(),
-                    0.0, // solde initial
-                    Integer.parseInt(identifiantField.getText()),
-                    Integer.parseInt(ribField.getText()),
-                    Integer.parseInt(motDePasseField.getText()),
-                    0, // virement initial
-                    0  // retrait initial
+                    nouveauClient.getNom() + " " + nouveauClient.getPrenom(),
+                    0.0,
+                    identifiant,
+                    rib,
+                    password,
+                    0,
+                    0
             );
 
             showAlert(Alert.AlertType.INFORMATION, "Succès",
-                    "Client et compte créés avec succès");
+                    "Client et compte créés avec succès pour " + nouveauCompte.getNomProprietaire());
 
-            // Redirection vers la page de connexion
             Stage stage = (Stage) nomField.getScene().getWindow();
             changerVue(stage, "connexion-view.fxml");
 
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur",
                     "Les champs numériques sont invalides");
-        } catch (CategorieException e) {
+        } catch (CategorieException | AgeException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
         }
     }
