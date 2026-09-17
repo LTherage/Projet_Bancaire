@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.univartois.butinfo.ihm.NavigationController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Navigation" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Button fx:id="adminButton" text="Dashboard Admin" onAction="#openAdmin"/>
+    <Button fx:id="employeButton" text="Dashboard Employé" onAction="#openEmploye"/>
+    <Button fx:id="clientButton" text="Compte Client" onAction="#openClient"/>
+    <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout"/>
+</VBox>

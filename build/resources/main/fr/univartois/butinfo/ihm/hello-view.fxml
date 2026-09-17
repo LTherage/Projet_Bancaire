@@ -4,10 +4,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="fr.univartois.butinfo.ihm.ApplicationBanque">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-    <Button text="Se connecter" fx:id="connexion" onAction="#seConnecter" />
-    <Button text="Créer un compte" onAction="#creerCompte" />
-</VBox>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.univartois.butinfo.ihm.ApplicationBanque"
+            prefWidth="900" prefHeight="560"
+            stylesheets="@style.css"
+            styleClass="auth-shell">
+
+    <VBox alignment="CENTER" spacing="18" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <VBox alignment="CENTER" spacing="16" maxWidth="420" styleClass="auth-card">
+            <Label text="Bienvenue" styleClass="auth-title"/>
+            <Label text="Votre espace bancaire sécurisé" styleClass="auth-subtitle"/>
+
+            <Button text="Se connecter" fx:id="connexion" onAction="#seConnecter" maxWidth="260"/>
+            <Button text="Créer un compte" onAction="#creerCompte" maxWidth="260" styleClass="button-secondary"/>
+        </VBox>
+    </VBox>
+</AnchorPane>
